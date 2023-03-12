@@ -13,7 +13,6 @@ class Solution {
         
        return partion(lists,0,lists.length-1);
 }
-
     public static ListNode partion(ListNode[] lists,int s,int e){
         if(s==e)  return lists[s];
         if(s<e){
@@ -24,7 +23,6 @@ class Solution {
         }else
             return null;
     }
-    
     public static ListNode merge(ListNode node1, ListNode node2) {
         
         // ListNode h1 = node1 ; 
@@ -45,14 +43,12 @@ class Solution {
                 node2 = node2.next ; 
             }
         }
-        
         if(node1 != null) {
             temp.next = node1 ; 
         }
         if(node2 != null) {
             temp.next = node2 ; 
         }
-        
         return dummy.next ; 
     }
 }
