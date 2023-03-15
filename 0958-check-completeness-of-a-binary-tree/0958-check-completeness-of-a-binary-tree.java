@@ -16,28 +16,22 @@
 class Solution {
     public boolean isCompleteTree(TreeNode root) {
         
-         Deque<TreeNode> bfs = new ArrayDeque<>();
-        bfs.offerLast(root);
-        boolean found = false;
-        while (!bfs.isEmpty()) {
-            int size = bfs.size();
-            for (int i = 0; i < size; i++) {
-                TreeNode cur = bfs.removeFirst();
-                if (cur.left != null) {
-                    if (found) return false;
-                    bfs.offerLast(cur.left);
-                } else {
-                    found = true;
+        boolean end = false;
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        
+        while(!queue.isEmpty()) {
+            TreeNode currentNode = queue.poll();
+            if(currentNode == null) {
+                end = true;
+            } else {
+                if(end) {
+                    return false;
                 }
-                if (cur.right != null) {
-                    if (found) return false;
-                    bfs.offerLast(cur.right);
-                } else {
-                    found = true;
-                }
+                queue.offer(currentNode.left);
+                queue.offer(currentNode.right);
             }
         }
-        return true; 
-        
+        return true;
     }
 }
