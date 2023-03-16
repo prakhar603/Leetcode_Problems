@@ -17,27 +17,26 @@ class Solution {
     public TreeNode buildTree(int[] inorder, int[] postorder) {
         
         HashMap<Integer, Integer> map = new HashMap<>() ; 
-        for(int i = 0; i < inorder.length; i++) {
+        for(int i=0; i < inorder.length ; i++) {
             map.put(inorder[i], i) ; 
         }
         
-        return constructTree(postorder, 0, postorder.length -1, inorder, 0, inorder.length -1, map) ; 
+        return constructTree(postorder, 0, postorder.length - 1, inorder, 0, inorder.length - 1, map) ; 
     }
-    
-    public TreeNode constructTree(int[] postorder, int postStart, int postEnd, int[] inorder, int inStart, int inEnd, 
-                                  HashMap<Integer, Integer> map) {
+    public TreeNode constructTree(int[] postorder, int poststart, int postend, int[] inorder, int instart, int inend,
+                                 HashMap<Integer, Integer> map) {
         
-        if(inStart > inEnd || postStart > postEnd) 
+        if(poststart > postend || instart > inend) 
             return null ; 
         
-        TreeNode root = new TreeNode(postorder[postEnd]) ; 
+        TreeNode root = new TreeNode(postorder[postend]) ; 
+        int rootIdx = map.get(postorder[postend]) ; 
+        int elementsRight = inend - rootIdx ; 
         
-        int rootIdx = map.get(postorder[postEnd]) ; 
-        int numsRight = inEnd - rootIdx ; 
-        
-        root.left = constructTree(postorder, postStart, postEnd - numsRight - 1, inorder, inStart, rootIdx - 1, map) ; 
-        root.right = constructTree(postorder, postEnd - numsRight, postEnd - 1, inorder, rootIdx + 1, inEnd, map) ; 
+        root.left = constructTree(postorder, poststart, postend-1-elementsRight  ,inorder, instart, rootIdx - 1, map) ; 
+        root.right = constructTree(postorder, postend - elementsRight, postend - 1, inorder, rootIdx + 1, inend, map) ; 
         
         return root ; 
+        
     }
 }
